@@ -28,6 +28,7 @@
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
         body {
@@ -56,7 +57,7 @@
             color: var(--text-primary);
             letter-spacing: -0.02em;
             line-height: 1.1;
-            text-shadow: 0 0 60px rgba(255, 255, 255, 0.3), 0 0 120px rgba(255, 255, 255, 0.15), 0 0 200px rgba(255, 255, 255, 0.08);
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.5), 0 0 100px rgba(255, 255, 255, 0.35), 0 0 200px rgba(255, 255, 255, 0.2), 0 0 350px rgba(255, 255, 255, 0.1);
             animation: heroFadeIn 0.8s ease-out both;
         }
 
@@ -143,7 +144,7 @@
 
         /* --- Security --- */
         .security {
-            max-width: 600px;
+            max-width: 960px;
             margin: 0 auto;
             padding: 4rem 2rem;
             text-align: center;
@@ -160,8 +161,11 @@
         .tech-strip {
             display: flex;
             justify-content: center;
+            align-items: center;
             flex-wrap: wrap;
             gap: 2rem;
+            max-width: 960px;
+            margin: 0 auto;
             padding: 3rem 2rem;
         }
 
@@ -174,6 +178,8 @@
 
         /* --- Footer --- */
         footer {
+            max-width: 960px;
+            margin: 0 auto;
             padding: 3rem 2rem;
             border-top: 1px solid var(--border);
             text-align: center;
