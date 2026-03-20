@@ -3,143 +3,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MinimaLog - Simple Workout Tracking</title>
-    <meta name="description" content="MinimaLog - The minimalist workout journal for iOS. Track your strength journey with a clean, motivating interface.">
+    <title>MinimaLog — Track less. Lift more.</title>
+    <meta name="description" content="MinimaLog — A minimalist fitness tracker for lifters. Log workouts, detect PRs, track progress, and connect with other lifters.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * {
+        /* --- Reset & Custom Properties --- */
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-card: #141414;
+            --bg-card-hover: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #555555;
+            --border: #222222;
+        }
+
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-secondary);
+            background-color: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Hero --- */
+        .hero {
             min-height: 100vh;
-            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        h1 {
-            color: #667eea;
-            font-size: 48px;
-            margin-bottom: 10px;
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
             font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            animation: heroFadeIn 0.8s ease-out both;
         }
 
-        .tagline {
-            font-size: 24px;
-            color: #666;
-            margin-bottom: 40px;
+        .hero .tagline {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            color: var(--text-secondary);
+            margin-top: 1rem;
+            font-weight: 400;
+            animation: heroFadeIn 0.8s ease-out 0.2s both;
         }
 
-        .features {
-            margin: 40px 0;
-        }
-
-        .feature {
-            margin: 20px 0;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-
-        .feature h3 {
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-
-        .cta {
-            text-align: center;
-            margin: 40px 0;
-        }
-
-        .app-store-badge {
+        .cta-btn {
             display: inline-block;
-            margin: 20px 0;
-        }
-
-        .app-store-badge img {
-            height: 60px;
-        }
-
-        footer {
-            margin-top: 60px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            text-align: center;
-            color: #666;
-            font-size: 14px;
-        }
-
-        footer a {
-            color: #667eea;
+            margin-top: 2.5rem;
+            padding: 0.75rem 2rem;
+            border: 1px solid var(--text-muted);
+            border-radius: 4px;
+            color: var(--text-secondary);
             text-decoration: none;
-            margin: 0 10px;
+            font-size: 0.875rem;
+            font-family: inherit;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            background: transparent;
+            cursor: pointer;
+            animation: heroFadeIn 0.8s ease-out 0.4s both;
         }
 
-        footer a:hover {
-            text-decoration: underline;
+        .cta-btn:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+
+        /* --- Features --- */
+        .features {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .feature-card svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--text-muted);
+            fill: none;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            margin-bottom: 1.25rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* --- Security --- */
+        .security {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .security p {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* --- Tech Strip --- */
+        .tech-strip {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 3rem 2rem;
+        }
+
+        .tech-strip span {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.8125rem;
+            margin-bottom: 0.75rem;
+        }
+
+        footer nav {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        footer nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8125rem;
+            transition: color 0.2s ease;
+        }
+
+        footer nav a:hover {
+            color: var(--text-primary);
+        }
+
+        /* --- Animations --- */
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 640px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                padding: 4rem 1.5rem;
+            }
+
+            .security {
+                padding: 3rem 1.5rem;
+            }
+
+            .tech-strip {
+                gap: 1.25rem;
+                padding: 2rem 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>MinimaLog</h1>
-        <p class="tagline">You log + we track</p>
-
-        <p style="font-size: 18px; margin-bottom: 30px;">
-            The minimalist workout journal for iOS. Track your strength journey with a clean, motivating interface designed for lifters.
-        </p>
-
-        <div class="features">
-            <div class="feature">
-                <h3>📊 Track Your Progress</h3>
-                <p>Log workouts, sets, and reps with ease. See your strength gains over time.</p>
-            </div>
-
-            <div class="feature">
-                <h3>💪 Build Stronger</h3>
-                <p>Personal records detection, workout templates, and detailed exercise history.</p>
-            </div>
-
-            <div class="feature">
-                <h3>🎯 Stay Focused</h3>
-                <p>Clean, distraction-free interface that lets you focus on what matters - your workout.</p>
-            </div>
-
-            <div class="feature">
-                <h3>☁️ Offline First</h3>
-                <p>Works offline, syncs when you're online. Your data is always accessible.</p>
-            </div>
-        </div>
-
-        <div class="cta">
-            <p style="font-size: 20px; margin-bottom: 20px;"><strong>Coming Soon to the App Store</strong></p>
+    <main>
+        <section class="hero">
+            <h1>MinimaLog</h1>
+            <p class="tagline">Track less. Lift more.</p>
+            <a href="#features" class="cta-btn">Coming Soon</a>
             <!-- Uncomment when app is live:
-            <a href="https://apps.apple.com/YOUR-APP-LINK" class="app-store-badge">
-                <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&releaseDate=1280880000" alt="Download on the App Store">
-            </a>
+            <a href="https://apps.apple.com/YOUR-APP-LINK" class="cta-btn">Download</a>
             -->
-        </div>
+        </section>
 
-        <footer>
-            <p>&copy; 2025 MinimaLog. All rights reserved.</p>
-            <p>
-                <a href="/privacy.html">Privacy Policy</a> |
-                <a href="/terms.html">Terms of Service</a>
-            </p>
-        </footer>
-    </div>
+        <section id="features" class="features">
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    <h3>Real-Time Session Logging</h3>
+                    <p>Log sets and reps with a built-in session timer that tracks your workout duration.</p>
+                </div>
+
+                <div class="feature-card fade-in" style="transition-delay: 0.1s">
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                        <polyline points="17 6 23 6 23 12"/>
+                    </svg>
+                    <h3>Automatic PR Detection</h3>
+                    <p>Personal records and 1RM estimates calculated automatically as you lift.</p>
+                </div>
+
+                <div class="feature-card fade-in" style="transition-delay: 0.2s">
+                    <svg viewBox="0 0 24 24">
+                        <line x1="18" y1="20" x2="18" y2="10"/>
+                        <line x1="12" y1="20" x2="12" y2="4"/>
+                        <line x1="6" y1="20" x2="6" y2="14"/>
+                    </svg>
+                    <h3>Progress Charts</h3>
+                    <p>Visualize your strength gains with per-exercise charts over time.</p>
+                </div>
+
+                <div class="feature-card fade-in" style="transition-delay: 0.3s">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    <h3>Social Feed</h3>
+                    <p>Follow lifters, share workouts, and engage with likes and comments.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="security fade-in">
+            <p>Your data is protected by row-level security policies. Every row belongs to you — nobody else can read it. We take privacy seriously.</p>
+        </section>
+
+        <section class="tech-strip fade-in">
+            <span>React</span>
+            <span>TypeScript</span>
+            <span>Supabase</span>
+            <span>Tailwind CSS</span>
+            <span>Capacitor</span>
+        </section>
+    </main>
+
+    <footer class="fade-in">
+        <p>MinimaLog &copy; 2025</p>
+        <nav>
+            <a href="/privacy.html">Privacy Policy</a>
+            <a href="/terms.html">Terms of Service</a>
+            <a href="https://github.com/Just-In-N-Out/MinimaLog" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        });
+    </script>
 </body>
 </html>
